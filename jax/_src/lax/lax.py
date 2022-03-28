@@ -2071,7 +2071,8 @@ add_p: Primitive = standard_naryop([_num, _num], 'add')
 ad.primitive_jvps[add_p] = _add_jvp
 ad.primitive_transposes[add_p] = _add_transpose
 iad.definverse(add_p, _add_inverse)
-mlir.register_lowering(add_p, partial(_nary_lower_mhlo, mhlo.AddOp))
+mlir.register_lowering(
+    add_p, partial(_nary_lower_mhlo, mhlo.AddOp, explicit_type=True))
 
 def _sub_jvp(primals, tangents):
   x, y = primals
